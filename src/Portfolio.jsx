@@ -309,7 +309,7 @@ function ModeToggle({ dark, onToggle }) {
 function ProfilePhoto({ T, dark }) {
   const [loaded, setLoaded] = useState(true);
   return (
-    <div style={{
+    <div className="profile-photo" style={{
       width:260, height:320, borderRadius:24,
       border:`4px solid ${dark?"#3D2050":"#1A1A1A"}`,
       boxShadow:`8px 8px 0 #FF6B9D, 14px 14px 0 ${dark?"#3D2050":"#1A1A1A"}`,
@@ -359,9 +359,10 @@ function ComicPopup({ project, onClose, sounds, dark }) {
       background: dark ? "rgba(5,2,10,0.85)" : "rgba(20,10,30,0.65)",
       display:"flex", alignItems:"center", justifyContent:"center",
       backdropFilter:"blur(8px)", animation:"overlayIn 0.25s ease",
-      padding:"24px",
+      padding:"clamp(12px, 4vw, 24px)",
+      overflowY:"auto",
     }}>
-      <div onClick={e => e.stopPropagation()} style={{
+      <div onClick={e => e.stopPropagation()} className="popup-inner" style={{
         background: dark ? darkBg : project.bg,
         border:`4px solid ${project.border}`,
         borderRadius:24, maxWidth:560, width:"100%",
@@ -370,13 +371,13 @@ function ComicPopup({ project, onClose, sounds, dark }) {
         animation:"popIn 0.35s cubic-bezier(0.175,0.885,0.32,1.275)",
         maxHeight:"calc(100vh - 48px)", overflowY:"auto",
       }}>
-        <div style={{
+        <div className="popup-banner" style={{
           position:"absolute", top:-22, right:28,
           background:"#FFD700", color:"#1A1A1A",
           fontFamily:"'Bangers',cursive", fontSize:20, letterSpacing:2,
           padding:"4px 20px", borderRadius:999,
           border:"3px solid #1A1A1A", boxShadow:"3px 3px 0 #1A1A1A",
-          transform:"rotate(2deg)",
+          transform:"rotate(2deg)", whiteSpace:"nowrap",
         }}>✨ PROJECT SPOTLIGHT</div>
 
         <div style={{
@@ -409,9 +410,10 @@ function ComicPopup({ project, onClose, sounds, dark }) {
           padding:"3px 14px", borderRadius:999, marginBottom:12,
         }}>{project.tag}</div>
 
-        <h2 id="popup-title" style={{
+        <h2 id="popup-title" className="popup-title" style={{
           fontFamily:"'Playfair Display',serif", fontSize:26, fontWeight:800,
           color: dark ? "#F2ECFF" : "#1A1A1A", margin:"0 0 14px", lineHeight:1.2,
+          wordBreak:"break-word",
         }}>{project.title}</h2>
 
         <p style={{ fontSize:15, color: dark ? "#B8A8D0" : "#444", lineHeight:1.8, margin:"0 0 22px" }}>{project.desc}</p>
@@ -508,7 +510,19 @@ export default function Portfolio() {
 
         @media (max-width: 640px) {
           h1 { font-size: clamp(36px, 9vw, 56px) !important; }
-          section { padding-left: 22px !important; padding-right: 22px !important; }
+          section { padding-left: 20px !important; padding-right: 20px !important; }
+          .nav-inner { gap: 12px !important; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+          .nav-link  { font-size: 11px !important; white-space: nowrap; }
+          .hero-inner { gap: 28px !important; justify-content: center !important; }
+          .hero-text  { min-width: 0 !important; }
+          .profile-photo { width: 200px !important; height: 240px !important; }
+          .popup-inner   { padding: 32px 18px 22px !important; }
+          .popup-banner  { font-size: 11px !important; padding: 3px 8px !important;
+                           letter-spacing: 1px !important; right: 52px !important; }
+          .popup-title   { font-size: clamp(15px, 5vw, 22px) !important; }
+        }
+        @media (max-width: 420px) {
+          .nav-link { display: none !important; }
         }
 
         * { box-sizing:border-box; }
@@ -525,7 +539,7 @@ export default function Portfolio() {
           style={{ fontFamily:"'Playfair Display',serif", fontSize:20, fontWeight:900, color:"#FF6B9D", letterSpacing:1, textDecoration:"none" }}>
           S.M. ✦
         </a>
-        <div style={{ display:"flex", alignItems:"center", gap:24, flexWrap:"wrap" }}>
+        <div className="nav-inner" style={{ display:"flex", alignItems:"center", gap:24, flexWrap:"wrap" }}>
           {NAV_LINKS.map(l => {
             const id = l.toLowerCase();
             return (
@@ -540,13 +554,13 @@ export default function Portfolio() {
       </nav>
 
       {/* ── HERO ── */}
-      <section id="about" style={{ minHeight:"92vh", display:"flex", alignItems:"center", padding:"60px 48px", position:"relative", overflow:"hidden" }}>
+      <section id="about" style={{ minHeight:"92vh", display:"flex", alignItems:"center", padding:"60px clamp(20px,5vw,48px)", position:"relative", overflow:"hidden" }}>
         <div style={{ position:"absolute", inset:0, zIndex:0, backgroundImage:`radial-gradient(circle, ${T.dot} 1px, transparent 1px)`, backgroundSize:"28px 28px", opacity: dark?0.15:0.28 }}/>
         <div style={{ position:"absolute", top:60, right:"8%", width:340, height:340, background:T.blob1, borderRadius:"60% 40% 70% 30%/40% 60% 40% 60%", animation:"float 6s ease-in-out infinite", zIndex:0 }}/>
         <div style={{ position:"absolute", bottom:40, left:"5%", width:200, height:200, background:T.blob2, borderRadius:"50%", animation:"float 8s ease-in-out infinite reverse", zIndex:0 }}/>
 
-        <div style={{ position:"relative", zIndex:1, display:"flex", alignItems:"center", gap:60, maxWidth:1100, margin:"0 auto", width:"100%", flexWrap:"wrap" }}>
-          <div style={{ flex:1, minWidth:300 }}>
+        <div className="hero-inner" style={{ position:"relative", zIndex:1, display:"flex", alignItems:"center", gap:60, maxWidth:1100, margin:"0 auto", width:"100%", flexWrap:"wrap" }}>
+          <div className="hero-text" style={{ flex:1, minWidth:300 }}>
             <div style={{
               display:"inline-flex", alignItems:"center", gap:8,
               background:"#FFD700", color:"#1A1A1A",
