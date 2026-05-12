@@ -366,43 +366,43 @@ function ComicPopup({ project, onClose, sounds, dark }) {
         background: dark ? darkBg : project.bg,
         border:`4px solid ${project.border}`,
         borderRadius:24, maxWidth:560, width:"100%",
-        padding:"44px 36px", position:"relative",
+        padding:"20px 36px 44px", position:"relative",
         boxShadow:`8px 8px 0px ${project.border}, 16px 16px 0px rgba(0,0,0,${dark?0.4:0.1})`,
         animation:"popIn 0.35s cubic-bezier(0.175,0.885,0.32,1.275)",
         maxHeight:"calc(100vh - 48px)", overflowY:"auto",
       }}>
-        <div className="popup-banner" style={{
-          position:"absolute", top:-22, right:28,
-          background:"#FFD700", color:"#1A1A1A",
-          fontFamily:"'Bangers',cursive", fontSize:20, letterSpacing:2,
-          padding:"4px 20px", borderRadius:999,
-          border:"3px solid #1A1A1A", boxShadow:"3px 3px 0 #1A1A1A",
-          transform:"rotate(2deg)", whiteSpace:"nowrap",
-        }}>✨ PROJECT SPOTLIGHT</div>
+        {/* Banner row: year badge left, PROJECT SPOTLIGHT right — all inside the card */}
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20, flexWrap:"wrap", gap:8 }}>
+          <div style={{
+            background: project.border, color:"#fff",
+            fontFamily:"'Bangers',cursive", fontSize:13, letterSpacing:2,
+            padding:"2px 12px", borderRadius:999,
+          }}>{project.year}</div>
 
-        <div style={{
-          position:"absolute", top:16, left:20,
-          background: project.border, color:"#fff",
-          fontFamily:"'Bangers',cursive", fontSize:13, letterSpacing:2,
-          padding:"2px 12px", borderRadius:999,
-        }}>{project.year}</div>
+          <div style={{
+            background:"#FFD700", color:"#1A1A1A",
+            fontFamily:"'Bangers',cursive", fontSize:14, letterSpacing:2,
+            padding:"4px 16px", borderRadius:999,
+            border:"3px solid #1A1A1A", boxShadow:"3px 3px 0 #1A1A1A",
+            transform:"rotate(2deg)", whiteSpace:"nowrap",
+          }}>✨ PROJECT SPOTLIGHT</div>
 
-        <button
-          ref={closeBtnRef}
-          onClick={handleClose}
-          aria-label="Close project details"
-          style={{
-            position:"absolute", top:16, right:16,
-            background:"#1A1A1A", color:"#fff", border:"none",
-            borderRadius:"50%", width:34, height:34, fontSize:20,
-            cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center",
-            transition:"transform 0.2s",
-          }}
-          onMouseEnter={e => e.currentTarget.style.transform="rotate(90deg)"}
-          onMouseLeave={e => e.currentTarget.style.transform="rotate(0deg)"}
-        >×</button>
+          <button
+            ref={closeBtnRef}
+            onClick={handleClose}
+            aria-label="Close project details"
+            style={{
+              background:"#1A1A1A", color:"#fff", border:"none",
+              borderRadius:"50%", width:34, height:34, fontSize:20,
+              cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center",
+              transition:"transform 0.2s", flexShrink:0,
+            }}
+            onMouseEnter={e => e.currentTarget.style.transform="rotate(90deg)"}
+            onMouseLeave={e => e.currentTarget.style.transform="rotate(0deg)"}
+          >×</button>
+        </div>
 
-        <div style={{ fontSize:52, textAlign:"center", marginBottom:12, marginTop:8 }}>{project.panel}</div>
+        <div style={{ fontSize:52, textAlign:"center", marginBottom:12 }}>{project.panel}</div>
 
         <div style={{
           display:"inline-block", background:project.border, color:"#fff",
@@ -516,9 +516,7 @@ export default function Portfolio() {
           .hero-inner { gap: 28px !important; justify-content: center !important; }
           .hero-text  { min-width: 0 !important; }
           .profile-photo { width: 200px !important; height: 240px !important; }
-          .popup-inner   { padding: 32px 18px 22px !important; }
-          .popup-banner  { font-size: 11px !important; padding: 3px 8px !important;
-                           letter-spacing: 1px !important; right: 52px !important; }
+          .popup-inner   { padding: 16px 16px 28px !important; }
           .popup-title   { font-size: clamp(15px, 5vw, 22px) !important; }
         }
         @media (max-width: 420px) {
